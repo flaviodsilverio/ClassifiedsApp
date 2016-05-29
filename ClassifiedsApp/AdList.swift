@@ -45,12 +45,7 @@ class AdList: UIViewController, UITableViewDelegate, UITableViewDataSource, APIM
         self.edgesForExtendedLayout = UIRectEdge.None
         
         allAdds = (self.managedObjectContext?.fetchAllObjects(fromEntityWithName: "Ads"))!
-        
-        if allAdds.count == 0 {
-            
-            setLoadingView(true, errorOccurred: false)
-
-        }
+        updateData()
 
     }
 
@@ -61,6 +56,13 @@ class AdList: UIViewController, UITableViewDelegate, UITableViewDataSource, APIM
     
     //MARK: Updating the data
     func updateData(){
+        
+        if allAdds.count == 0 {
+            
+            setLoadingView(true, errorOccurred: false)
+            
+        }
+        
         dataManager.updateData()
     }
 
@@ -176,50 +178,53 @@ class AdList: UIViewController, UITableViewDelegate, UITableViewDataSource, APIM
     
     func setLoadingView(visible: Bool, errorOccurred: Bool) {
         
-        tableView.viewWithTag(301)?.removeFromSuperview()
-        
-        if visible {
+        dispatch_async(dispatch_get_main_queue(), {
             
-            self.tableView.separatorColor = UIColor.clearColor()
+            self.tableView.viewWithTag(301)?.removeFromSuperview()
+            self.tableView.scrollEnabled = true
             
-            let view = UIView(frame: CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height))
-            view.tag = 301
-            view.backgroundColor = UIColor.darkGrayColor()
-            
-            let label = UILabel(frame: CGRectMake(0,0,200,50))
-            label.textColor = UIColor.whiteColor()
-            label.center = CGPointMake(view.center.x, view.center.y - 50)
-            label.textAlignment = NSTextAlignment.Center
-            view.addSubview(label)
-            
-            if errorOccurred {
+            if visible {
                 
-                label.text = "An Error ocurred"
+                self.tableView.separatorColor = UIColor.clearColor()
                 
-                let button = UIButton(frame: CGRectMake(0,0,200,50))
-                button.center = CGPointMake(view.center.x, view.center.y)
-                button.setTitle("Tap Here to Retry", forState: UIControlState.Normal)
-                button.backgroundColor = UIColor.whiteColor()
-                button.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
-                button.addTarget(self, action: #selector(AdList.updateData), forControlEvents: UIControlEvents.TouchUpInside)
-                view.addSubview(button)
+                let view = UIView(frame: CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height))
+                view.tag = 301
+                view.backgroundColor = UIColor.darkGrayColor()
                 
-            } else {
+                let label = UILabel(frame: CGRectMake(0,0,200,50))
+                label.textColor = UIColor.whiteColor()
+                label.center = CGPointMake(view.center.x, view.center.y - 50)
+                label.textAlignment = NSTextAlignment.Center
+                view.addSubview(label)
                 
-                label.text = "Loading Data..."
+                if errorOccurred {
+                    
+                    label.text = "An Error ocurred"
+                    
+                    let button = UIButton(frame: CGRectMake(0,0,200,50))
+                    button.center = CGPointMake(view.center.x, view.center.y)
+                    button.setTitle("Tap Here to Retry", forState: UIControlState.Normal)
+                    button.backgroundColor = UIColor.whiteColor()
+                    button.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
+                    button.addTarget(self, action: #selector(AdList.updateData), forControlEvents: UIControlEvents.TouchUpInside)
+                    view.addSubview(button)
+                    
+                } else {
+                    
+                    label.text = "Loading Data..."
+                    
+                    let indicator = UIActivityIndicatorView(frame: CGRectMake(0,0,100,100))
+                    indicator.center = view.center
+                    indicator.startAnimating()
+                    view.addSubview(indicator)
+                    
+                }
                 
-                let indicator = UIActivityIndicatorView(frame: CGRectMake(0,0,100,100))
-                indicator.center = view.center
-                indicator.startAnimating()
-                view.addSubview(indicator)
+                self.tableView.scrollEnabled = false
+                self.tableView.addSubview(view)
                 
             }
-            
-            
-            
-            self.tableView.addSubview(view)
-            
-        }
+        })
     }
 }
 

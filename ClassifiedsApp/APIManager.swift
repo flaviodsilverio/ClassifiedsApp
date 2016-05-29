@@ -97,7 +97,6 @@ class APIManager: AnyObject {
                 if(response as! NSHTTPURLResponse).statusCode == 200 {
   
                     guard let image = UIImage.init(data: data!) else {
-                        
                         completion(success: false, image: nil, error: nil, identifier: identifier)
                         return
 
@@ -130,7 +129,7 @@ class APIManager: AnyObject {
     
     func dataUpdateError(){
         dispatch_async(dispatch_get_main_queue(), {
-            self.delegate?.dataUpdateSuccess()
+            self.delegate?.dataUpdateError()
         })
 
     }

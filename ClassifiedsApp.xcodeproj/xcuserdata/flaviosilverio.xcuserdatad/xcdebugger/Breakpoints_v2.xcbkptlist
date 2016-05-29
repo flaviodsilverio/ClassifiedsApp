@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClassifiedsApp/AdList.swift"
-            timestampString = "486251445.946612"
+            timestampString = "486252280.286588"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284">
+            startingLineNumber = "289"
+            endingLineNumber = "289">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
