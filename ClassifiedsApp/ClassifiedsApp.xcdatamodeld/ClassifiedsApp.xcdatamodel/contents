@@ -1,4 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15E65" minimumToolsVersion="Automatic">
+    <entity name="Ads" representedClassName=".Ads" syncable="YES">
+        <attribute name="age" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="business" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="chat_options" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="created" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="has_email" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="has_phone" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="header" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="header_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hide_user_ads_button" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="highlighted" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="is_price_negotiable" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="list_label" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="list_label_ad" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="params" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="photos" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="preview_url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="promotion_section" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="top_ad" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="urgent" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="user_ads_url" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Categories" inverseName="ads" inverseEntity="Categories" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="ads" inverseEntity="Users" syncable="YES"/>
+    </entity>
+    <entity name="Categories" representedClassName=".Categories" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="ads" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ads" inverseName="category" inverseEntity="Ads" syncable="YES"/>
+    </entity>
+    <entity name="Locations" representedClassName=".Locations" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="long" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="location" inverseEntity="Users" syncable="YES"/>
+    </entity>
+    <entity name="Users" representedClassName=".Users" syncable="YES">
+        <attribute name="alias" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numeric_id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="ads" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ads" inverseName="user" inverseEntity="Ads" syncable="YES"/>
+        <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Locations" inverseName="user" inverseEntity="Locations" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Categories" positionX="-126" positionY="-54" width="128" height="73"/>
+        <element name="Users" positionX="207" positionY="335" width="128" height="133"/>
+        <element name="Ads" positionX="34" positionY="81" width="128" height="448"/>
+        <element name="Locations" positionX="394" positionY="81" width="128" height="118"/>
+    </elements>
 </model>
